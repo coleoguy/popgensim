@@ -1,3 +1,3 @@
-ViewEvo <- function(x="wf.model"){
-  if(x == 'wf.model') runApp(system.file("popgensim", package='popgensimR'))
+simulate <- function(x="popgen"){
+  if(x == 'popgen') runApp(system.file("popgen", package='popgensim'))
 }

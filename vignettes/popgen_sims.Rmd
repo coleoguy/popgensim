@@ -31,7 +31,7 @@ Once an allele enters a population (by mutation or migration), its evolutionary 
 In this lab, you will use a computer program to explore how the the prevalence of an allele in a population (its frequency) is affected by a variety of factors---its initial frequency, whether it is dominant or recessive, the relative fitnesses of individuals bearing different alleles, and population size.
 
 Throughout this lab, we will focus on a single locus with two alleles, A and a.
-We will assume that mating is random with respect to this locus, and that there is no gene flow from other population.
+We will assume that mating is random with respect to this locus, and that there is no migration from other population.
 
 ## Evolution Across Generations
 
@@ -41,8 +41,8 @@ We will use an R computer program in this lab.
 You don't need to worry about the actual code that it contains,however, it is important to understand what goes on inside such a program.
 
 Let's focus on the scenario in which there is selection, but not drift, mutation, or migration.
-The basic idea is to start with some initial frequency of allele A, compute how it changes within the first generation, compute how it changes within the second generation, and so on.
-Here is what a computer program would do:
+The basic idea is to start with some initial frequency of allele A, compute how it changes within the first generation, and subsequent generations.
+Here is how a computer program does this:
 
   1. Have some initial frequency of allele A.
   2. Compute frequencies of genotypes AA, Aa, and aa, based on the frequency of A in step 1.
@@ -57,44 +57,42 @@ Here is what a computer program would do:
 ## Lauching the Population Genetics Application
 
 The population genetics application you will be using is a computer program written in R.
-This week, though, you won't be working with any R code once you get the application launched.
 There is an R package called [shiny](http://shiny.rstudio.com/) that makes it easy to write programs with graphical user interfaces.
 So, you'll have sliders to drag rather than lines of code to execute.
-(The Shiny application we'll be using is in the package [simpopgen](XXXXX)
+(The Shiny application we'll be using is in the package [popgensim](https://github.com/coleoguy/popgensim)
 
-If you are working on your own computer, you'll need to install shiny, devtools, and simpopgen: `install.packages("shiny")`.
-The lab computers already have shiny installed.
+If you are working on your own computer follow these installation instructions: 
 
-Our program consists of two files, which you will need to obtain and provide for R.
+First [install R](https://www.r-project.org/)
 
-  1. [Download this zip file of the population genetics R program](popgen_app.zip)
-  2. You should now have `popgen_app.zip` on your Desktop or in your Downloads folder.  Find it.
-  3. Unzip the `popgen_app.zip` file.  Different computers do this differently---ask your TA if you need help.
-  4. You should now have a *folder* called `popgen_app`.  Put it on your Desktop.  (Or if you put it somewhere else, you'll need to adjust the `setwd()` command below.)
-  5. Open this folder to double-check that it contains the two files we need: `server.R` and `ui.R`.  *Do not edit the code in these files, and do not try to run the code in the normal way.*  But if you're interested to see the code we'll be using, this is it.
-  6. Start R or RStudio.
+Then install and load the devtools package that allows you use packages on github:
+
+`install.packages("devtools")`
+
+`library(devtools)`
+
+Now you can install and load popgensim:
+
+`install_github('coleoguy/popgensim', build_vignettes = T)`
+
+The lab computers already have popgensim installed.
+
+Start R or RStudio.
 
 In your R window, type (or copy-paste) the following commands:
 
 ```{r, eval = FALSE}
-# Set your working directory, so R knows where to look for the application you obtained above.
-setwd("~/Desktop")
-
-# Load the library called "shiny".
-library(shiny)
-
+library(popgensim)
 # Launch the population genetics application.
-runApp("popgen_app")
+simulate(x="popgen")
 ```
+
+If you can't install software on your computer you can also use the [web version](https://popgensim.shinyapps.io/popgen_app/) of the simulator.
 
 You should now see a new window that looks like the screenshot below.
 At this point, you can minimize your R/RStudio window (you won't be typing anything else into it), but don't quit R.
 
 ![our popgen R app](popgen_app.png)
-
-To be sure the application is responsive, drag the slider that changes the initial frequency of allele A.
-It's in the upper-left.
-You should see the line plotted on the right change position.
 
 For each topic below, the goal is for you to develop a sense of how the various parameters affect the frequency of allele A.
 Each topic begins with some suggested scenarios to investigate, but you are encouraged to experiment further.
@@ -109,7 +107,7 @@ So you have already obtained the first population genetics result in this lab: w
 In this first set of explorations, you will be adjusting the fitnesses of the three genotypes to learn how that affects the allele frequencies over time.
 
 Note: The fitness of the AA genotype will sometimes be called w~11~.
-Similarly, w~12~ is the fitness of the heterozygote, and w~22~ is the fitness of the other homozygote.
+Similarly, w~12~ is the fitness of the Aa genotype, and w~22~ is the fitness of the other aa genotype.
 
 ## Directional selection
 
@@ -165,7 +163,7 @@ Set w~11~ = 1 and w~22~ = 0.85.
 (b) Show two plots of your results to illustrate how the same equilibrium frequency of approximately 0.7 is reached from very-different initial frequencies.
 >
 (c) What is the precise equilibrium value for these three fitnesses?
-Use the formula we discussed in class (consulting our [population genetics cheatsheet](popgen_cheatsheet.pdf) if necessary).
+Use the formula we discussed in class.
 Show your work.
 
 ## Underdominance
@@ -188,15 +186,15 @@ This is the unstable equilibrium allele frequency.
 Approximately what is this frequency?
 (As best as you can tell given the resolution of the slider.)
 >
-(b) For these values of fitness, compute the precise equilibrium frequency of A (again consulting our [population genetics cheatsheet](popgen_cheatsheet.pdf) if necessary).
+(b) For these values of fitness, compute the precise equilibrium frequency of A.
 Show your work.
 
 # Genetic Drift
 
 All our investigations so far have assumed there are an infinite number of individuals in the population
 This is a reasonable approximation for populations of large size.
-When there are few individuals, however, exactly which alleles happen to get passed from one generation to the next can play a big role.
-Evolution by this kind of random sampling is called genetic drift.
+When there are few individuals, however, exactly which alleles happen to get passed from one generation to the next is influenced by sampling.
+Evolution by this kind of probabilistic sampling is called genetic drift.
 
 ## Drift Alone
 
@@ -221,13 +219,17 @@ When you feel you understand the above explorations, answer the following questi
 Show plots of results for a small population with 50 individuals, and for a large population with 500 individuals.
 Discuss the differences you see.  (If you're not sure what to discuss, refer to the numbered explorations above.)
 
-## Drift -- Selection
+## Drift and Selection
 
 Here are some scenarios to explore, to get a sense for how drift and selection interact to affect allele frequencies.
 
 1. Set w~11~ = w~12~ = w~22~ = 1.  Gradually increase the strength of selection against a (i.e., decrease w~22~).  Try this for different population sizes and different initial frequencies of A.
 
 2. How are the results affected if A is dominant versus recessive?
+
+3. Set population size to 100, the frequency of A to 0.01, fitness of AA to 1.5, and replicates to 50.  This represents a new beneficial mutation.
+
+4. Are beneficial mutations lost often? why?
 
 When you feel you understand the above explorations, answer the following question.
 
