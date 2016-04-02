@@ -1,14 +1,17 @@
 # popgensim
 _Population genetics simulation_
 
-This package provides a simple html based Wright-Fisher population genetics interactive simulations for use in teaching.  It is built in the R environment and leverages Shiny to produce the html pages.
+This package provides a simple html based Wright-Fisher population genetics interactive simulator for use in teaching.  It is built in the R environment and uses the Shiny package to produce html pages.
 
+To use this first [install R](https://www.r-project.org/)
 
-to install from GitHub:
+Then install and load the devtools package that allows you use packages on github:
 
 <code>install.packages("devtools")</code>
 
 <code>library(devtools)</code>
+
+Now you can install and load popgensim:
 
 <code>install_github('coleoguy/popgensim', build_vignettes = T)</code>
 
