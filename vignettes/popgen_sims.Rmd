@@ -1,29 +1,21 @@
 ---
 title: "Population Genetics Simulations"
+author: Heath Blackmon and Emma E. Goldberg
+date: "last updated: `r Sys.Date()`"
 output:
   pdf_document:
-    toc: yes
-  html_document:
-    css: qq.css
-    highlight: default
-    theme: flatly
-    toc: yes
-    toc_depth: 2
+    fig_caption: yes
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Population Genetics Simulations}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
-```{r, echo = FALSE}
-question.number <- 1
-
-TA.VERSION <- F
-TA.TXT <- ifelse(TA.VERSION, "markup", "hide")
-TA.FIG <- ifelse(TA.VERSION, "asis", "hide")
-```
 ```{r global_options, include = FALSE}
 library("knitr")
 opts_chunk$set(comment=NA, fig.width=4, fig.height=4)
+question.number <- 1
 ```
-
-`r if(TA.VERSION){"#### **TA VERSION (with answers)**"}`
 
 # Introduction
 
@@ -50,11 +42,7 @@ Here is how a computer program does this:
   4. Compute the frequency of A from the genotype frequencies in step 3.
   5. Return to step 1, but now using the frequency of A determined in step 4.
 
-`r if(TA.VERSION){"**TA Note:** *Please walk the class through these steps in gory detail.  For example, have students provide numbers of initial freq(A), w~11~, w~12~, and w~22~.  Write out the math for each step, having students with calculators plug in the numbers and call out the answers.  Do two full generations at least, so they get the sense of iteration.  Maybe also do the case where all the fitnesses are equal, so they see the allele freq doesn't change.  Maybe plot on the board the values of freq(A) for the few generations, to connect with the plots they'll be seeing during the rest of the lab.*"}`
-
-`r if(TA.VERSION){"**TA Note:** *It might also be good to remind the class how to convert between [w~11~, w~12~, w~22~] (used in the app for this lab) and [1, 1-hs, 1-s] (used in lecture).  First divide by w~11~, then use w~22~ to get s, then use w~12~ and s to get h.*"}`
-
-## Lauching the Population Genetics Application
+## Installing and Lauching the Population Genetics Application
 
 The population genetics application you will be using is a computer program written in R.
 There is an R package called [shiny](http://shiny.rstudio.com/) that makes it easy to write programs with graphical user interfaces.
@@ -81,7 +69,7 @@ Start R or RStudio.
 
 In your R window, type (or copy-paste) the following commands:
 
-```{r, eval = FALSE}
+```
 library(popgensim)
 # Launch the population genetics application.
 simulate(x="popgen")
@@ -89,10 +77,9 @@ simulate(x="popgen")
 
 If you can't install software on your computer you can also use the [web version](https://popgensim.shinyapps.io/popgen_app/) of the simulator.
 
-You should now see a new window that looks like the screenshot below.
-At this point, you can minimize your R/RStudio window (you won't be typing anything else into it), but don't quit R.
+You should now see a new window that looks like the screenshot below. Click on the "open in browser" button and maximize the new window.
 
-![our popgen R app](popgen_app.png)
+![Population Genetics Simulator App](popgen_app.png)
 
 For each topic below, the goal is for you to develop a sense of how the various parameters affect the frequency of allele A.
 Each topic begins with some suggested scenarios to investigate, but you are encouraged to experiment further.
