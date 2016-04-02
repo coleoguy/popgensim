@@ -1,4 +1,5 @@
-Package: popgensimType: Package
+Package: popgensim
+Type: Package
 Title: Wright-Fisher model population genetics simulator
 Version: 0.0.0
 Date: 2016-03-16
