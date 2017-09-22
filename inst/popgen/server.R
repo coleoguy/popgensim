@@ -106,6 +106,7 @@ shinyServer(function(input, output) {
 
   # Plot the results
   output$genePlot <- renderPlot({
+    par(family="Helvetica")
 
       # Set up plot area
       plot(0, 0, col = 'white', ylim = c(0, 1), xlim = c(0, input$gen),
