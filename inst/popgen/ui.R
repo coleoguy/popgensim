@@ -20,8 +20,8 @@ shinyUI(fluidPage(
                     sliderInput("fit.Aa", "Fitness of Aa:",
                                 min = 0, max = 1.5, value = 1, step = 0.05),
                     sliderInput("fit.aa", "Fitness of aa:",
-                                min = 0, max = 1.5, value = 1, step = 0.05)
-
+                                min = 0, max = 1.5, value = 1, step = 0.05),
+                    checkboxInput("plot.choice", "plot population fitness", FALSE)
              ),
 
              column(6,

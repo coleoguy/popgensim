@@ -114,10 +114,8 @@ shinyServer(function(input, output) {
            cex.lab=1.5, cex.axis=1.3)
       mtext("Based on the R package popgensim",
             side = 1, cex=.8, line=4, adj=1)
-
       lwd.expected <- 5
       lwd.simulated <- 3
-
       # Plot drift outcomes
       if (input$iter > 0) {
         for (i in 1:input$iter) {
@@ -140,19 +138,26 @@ shinyServer(function(input, output) {
           }
         }
       }
-
+      # Plot mean fitness
+      if (input$plot.choice == TRUE) {
+            y <- input$fit.AA * expected.A()^2 +
+              input$fit.Aa * 2 * expected.A() * (1-expected.A()) +
+              input$fit.aa * (1 - expected.A())^2
+      lines(1:input$gen, y, lwd=2, lty = 3, col="red")
+      }
+      
+      
       # Plot expected outcome
       if (input$var.plot == 1)
           lines(1:input$gen, expected.A()^2, lwd = lwd.expected)
       if (input$var.plot == 2)
           lines(1:input$gen, 2 * expected.A() *
-                             (1-expected.A()), lwd = lwd.expected)
+                             (1 - expected.A()), lwd = lwd.expected)
       if (input$var.plot == 3)
-          lines(1:input$gen, (1-expected.A())^2, lwd = lwd.expected)
+          lines(1:input$gen, (1 - expected.A())^2, lwd = lwd.expected)
       if (input$var.plot == 4)
           lines(1:input$gen, expected.A(), lwd = lwd.expected)
       if (input$var.plot == 5)
-          lines(1:input$gen, (1-expected.A()), lwd = lwd.expected)
+          lines(1:input$gen, (1 - expected.A()), lwd = lwd.expected)
   })
-
 })
